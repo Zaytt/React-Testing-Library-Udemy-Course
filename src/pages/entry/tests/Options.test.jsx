@@ -14,7 +14,7 @@ test('displays image for each scoop from the server', async () => {
   expect(altTextArray).toEqual(['Chocolate scoop', 'Vanilla scoop']);
 });
 
-test('display image for each available topping', async () => {
+test.only('display image for each available topping', async () => {
   render(<Options optionType="toppings" />);
 
   // find images

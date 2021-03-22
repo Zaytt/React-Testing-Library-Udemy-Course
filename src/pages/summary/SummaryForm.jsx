@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button, Popover, OverlayTrigger } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 const SummaryForm = () => {
   const [tcChecked, setTcChecked] = useState(false);
+  const history = useHistory();
 
   const popover = (
     <Popover id="popover-basic">
@@ -18,6 +20,11 @@ const SummaryForm = () => {
     </OverlayTrigger>
   );
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    history.push('/confirmation');
+  };
+
   return (
     <Form>
       <Form.Group controlId="terms-and-conditions">
@@ -28,7 +35,7 @@ const SummaryForm = () => {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={!tcChecked}>
+      <Button variant="primary" type="submit" disabled={!tcChecked} onClick={handleClick}>
         Confirm order
       </Button>
     </Form>

@@ -6,6 +6,7 @@ import { Row } from 'react-bootstrap';
 import AlertBanner from '../common/AlertBanner';
 import { pricePerItem } from '../../constants/index';
 import { useOrderDetails } from '../../contexts/OrderDetails';
+import { formatCurrency } from '../../utils/index';
 
 const Options = ({ optionType }) => {
   const [items, setItems] = useState([]);
@@ -29,13 +30,14 @@ const Options = ({ optionType }) => {
   }
 
   const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
+
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
   const optionItems = items.map((item) => (
     <ItemComponent
       key={item.name}
       name={item.name}
-      image={item.imagePath}
+      imagePath={item.imagePath}
       updateItemCount={(itemName, itemCount) => updateItemCount(itemName, itemCount, optionType)}
     />
   ));
@@ -43,9 +45,9 @@ const Options = ({ optionType }) => {
   return (
     <>
       <h2>{title}</h2>
-      <p>${pricePerItem.scoops} each</p>
+      <p>{formatCurrency(pricePerItem.scoops)} each</p>
       <p>
-        {title} total: ${orderDetails.totals[optionType]}
+        {title} total: {orderDetails.totals[optionType]}
       </p>
       <Row>{optionItems}</Row>
     </>
